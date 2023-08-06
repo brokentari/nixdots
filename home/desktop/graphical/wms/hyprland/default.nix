@@ -20,16 +20,15 @@ in {
     xwayland = {
       enable = true;
     };
-    enableNvidiaPatches = true;
     settings = {
       # "$mainMod" = "SUPER";
       monitor = [
-        ",preferred,auto,auto"
-        "DP-3, 1920x1080@165,0x0,1"
+        ",1920x1080@60,auto,auto"
+        # "DP-3, 1920x1080@165,0x0,1"
       ];
 
       input = {
-        kb_layout = "br";
+        kb_layout = "us";
         kb_variant = "";
         kb_model = "";
         kb_options = "";

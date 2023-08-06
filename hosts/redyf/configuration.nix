@@ -18,19 +18,12 @@
   # Bootloader.
   boot = {
     # Kernel Modules
-    kernelModules = ["v4l2loopback"]; # Autostart kernel modules on boot
-    extraModulePackages = with config.boot.kernelPackages; [v4l2loopback]; # loopback module to make OBS virtual camera work
     loader = {
       systemd-boot.enable = false;
       timeout = 10;
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/efi";
-      };
       grub = {
         enable = true;
-        device = "nodev";
-        efiSupport = true;
+        device = "/dev/sda";
         useOSProber = true;
         configurationLimit = 3;
         theme = pkgs.fetchFromGitHub {
@@ -97,21 +90,21 @@
   };
 
   # Set your time zone.
-  time.timeZone = "America/Bahia";
+  time.timeZone = "America/New_York";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "pt_BR.UTF-8";
+  i18n.defaultLocale = "en_US.UTF-8";
 
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "pt_BR.UTF-8";
-    LC_IDENTIFICATION = "pt_BR.UTF-8";
-    LC_MEASUREMENT = "pt_BR.UTF-8";
-    LC_MONETARY = "pt_BR.UTF-8";
-    LC_NAME = "pt_BR.UTF-8";
-    LC_NUMERIC = "pt_BR.UTF-8";
-    LC_PAPER = "pt_BR.UTF-8";
-    LC_TELEPHONE = "pt_BR.UTF-8";
-    LC_TIME = "pt_BR.UTF-8";
+    LC_ADDRESS = "en_US.UTF-8";
+    LC_IDENTIFICATION = "en_US.UTF-8";
+    LC_MEASUREMENT = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NAME = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
   };
 
   # Enable the X11 windowing system.
@@ -130,14 +123,12 @@
   # Enable programs
   programs = {
     zsh.enable = true;
-    steam.enable = true;
     dconf.enable = true;
     hyprland = {
       enable = true;
       xwayland = {
         enable = true;
       };
-      nvidiaPatches = true;
     };
   };
 
@@ -190,7 +181,7 @@
 
   # Enables virtualization for virt-manager and virtual box
   virtualisation = {
-    libvirtd.enable = true;
+    libvirtd.enable = false;
     # virtualbox = {
     #   host = {
     #     enable = true;
@@ -207,15 +198,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  services.xserver.videoDrivers = ["nvidia"];
-
-  environment.variables = {
-    GBM_BACKEND = "nvidia-drm";
-    LIBVA_DRIVER_NAME = "nvidia";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    __GL_GSYNC_ALLOWED = "1";
-    __GL_VRR_ALLOWED = "0"; # Controls if Adaptive Sync should be used. Recommended to set as “0” to avoid having problems on some games.
-  };
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
@@ -223,19 +205,13 @@
   };
 
   hardware = {
-    nvidia = {
-      open = true;
-      powerManagement.enable = true;
-      modesetting.enable = true;
-    };
     opengl.enable = true;
     opengl.driSupport32Bit = true;
-    opengl.extraPackages = with pkgs; [nvidia-vaapi-driver];
   };
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "br";
+    layout = "us";
     xkbVariant = "";
     libinput = {
       enable = true;
@@ -248,22 +224,15 @@
     };
   };
 
-  # Configure console keymap
-  console.keyMap = "br-abnt2";
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
   # Enable sound with pipewire.
-  sound.enable = true;
+  sound.enable = false;
   hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
+  security.rtkit.enable = false;
   services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    wireplumber.enable = true;
+    enable = false;
+    alsa.enable = false;
+    pulse.enable = false;
+    wireplumber.enable = false;
     #jack.enable = true;
   };
 

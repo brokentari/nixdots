@@ -2,7 +2,7 @@
   description = "Redyf's NixOS config for desktop and laptop";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:brokentari/nixpkgs/nixos-unstable";
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
     hyprland.url = "github:hyprwm/Hyprland";
     waybar-hyprland.url = "github:hyprwm/hyprland";
